@@ -1,8 +1,4 @@
 
-# The Front - Game Server
-
----
-
 <!-- TOC -->
 * [The Front - Game Server](#the-front---game-server)
   * [Configuration](#configuration)
@@ -12,6 +8,10 @@
     * [Run](#run-1)
     * [Steam / Gameserver commands](#steam--gameserver-commands)
 <!-- TOC -->
+
+---
+
+# The Front - Game Server
 
 ## Configuration
 
