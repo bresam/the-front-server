@@ -1,30 +1,62 @@
-The Front Server Steam ID:
-Linux: 2334200
-Windo: 2612550
 
-Windows how to setup:
-https://steamcommunity.com/sharedfiles/filedetails/?id=3049715226
+# The Front - Game Server
 
-Docker Steamcmd:
-https://hub.docker.com/r/steamcmd/steamcmd
+---
 
-## Build
+<!-- TOC -->
+* [The Front - Game Server](#the-front---game-server)
+  * [Configuration](#configuration)
+  * [Run](#run)
+  * [Dev notes](#dev-notes)
+    * [Build / Run](#build--run)
+    * [Run](#run-1)
+    * [Steam / Gameserver commands](#steam--gameserver-commands)
+<!-- TOC -->
 
-```bash
-docker build -t the-front:rc1 .
-```
+## Configuration
+
+TBD
 
 ## Run
 
+TBD
+
+## Dev notes
+
+[Advanced configuration](https://survivalservers.com/wiki/index.php?title=The_Front_Advanced_Configuration)
+
+The Front Server Steam App ID:
+ - Linux: 2334200
+ - Windows: 2612550
+
+[Windows how to install example](https://steamcommunity.com/sharedfiles/filedetails/?id=3049715226)
+
+[Docker image of steamcmd](https://hub.docker.com/r/steamcmd/steamcmd)
+
+[Steam CMD wiki](https://developer.valvesoftware.com/wiki/SteamCMD)
+
+### Build / Run
+
 ```bash
-docker run --entrypoint /bin/sh -it the-front:rc1
+docker build -t the-front-game-server:rc1 .
 ```
 
-## Steam Commands
+### Run
 
-Install linux the front server:
-`steamcmd +force_install_dir "/the_front_server" +login anonymous +app_update 2334200 validate +quit`
+```bash
+# start with default config
+docker run the-front-game-server:rc1
+```
 
+```bash
+# start and connect for manual interaction (dev / test)
+docker run --entrypoint /bin/bash -it the-front-game-server:rc1
+```
+
+### Steam / Gameserver commands
+
+Install linux the front server:   
+`steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit`
 
 
 /Game/Root/Map
