@@ -1,10 +1,11 @@
 # update steam and server installation
 steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit
 
+# set gameserver as owner of server files
+chown -R gameserver:gameserver /home/gameserver/the_front
+
 # start the front gameserver
-# TODO: Update actual executable path and running user
-# TODO: Check and remove ProjectWar_Start ?Listen?MaxPlayers
-./TheFrontServer ProjectWar \
+su -c '/home/gameserver/the_front/ProjectWar/Binaries/Linux/TheFrontServer ProjectWar \
   ProjectWar_Start ?Listen?MaxPlayers="$FRONT_MAX_PLAYERS" \
   -server \
   -game \
@@ -16,12 +17,11 @@ steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_upd
   -EnableParallelCharacterMovementTickFunction \
   -EnableParallelCharacterTickFunction \
   -UseDynamicPhysicsScene \
-  -port=53000 \
-  -BeaconPort=53001 \
-  -QueryPort=53002 \
-  -ShutDownServicePort=53003 \
+  -port="$FRONT_PORT_GAME" \
+  -BeaconPort="$FRONT_PORT_BEACON" \
+  -QueryPort="$FRONT_PORT_QUERY" \
+  -ShutDownServicePort="$FRONT_PORT_SHUTDOWN_SERVICE" \
   -Game.PhysicsVehicle=false \
   -ansimalloc \
   -Game.MaxFrameRate=35 \
-  -ServerPassword="$FRONT_SERVER_PASSWORD"
-
+  -ServerPassword="$FRONT_SERVER_PASSWORD"' gameserver

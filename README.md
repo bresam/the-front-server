@@ -33,22 +33,26 @@ The Front Server Steam App ID:
 
 [Steam CMD wiki](https://developer.valvesoftware.com/wiki/SteamCMD)
 
-### Build / Run
+### Build / Push
 
 ```bash
-docker build -t the-front-game-server:rc1 .
+docker build -t bresam/the-front-game-server:rc1 .
+```
+
+```bash
+docker push bresam/the-front-game-server:rc1
 ```
 
 ### Run
 
 ```bash
 # start with default config
-docker run the-front-game-server:rc1
+docker run  bresam/the-front-game-server:rc1
 ```
 
 ```bash
 # start and connect for manual interaction (dev / test)
-docker run --entrypoint /bin/bash -it the-front-game-server:rc1
+docker run --entrypoint /bin/bash -it  bresam/the-front-game-server:rc1
 ```
 
 ### Steam / Gameserver commands
@@ -65,4 +69,3 @@ ubuntu@70a9904a8ec4:~/.steam/steam/steamapps/common/LinuxServer/ProjectWar/Binar
 
 ./TheFrontServer ProjectWar ProjectWar_Start ?Listen?MaxPlayers=8 -server -game -QueueThreshold=8 -ServerName="YOUR SERVER NAME" -log log=l
 og.log -locallogtimes -EnableParallelCharacterMovementTickFunction -EnableParallelCharacterTickFunction -UseDynamicPhysicsScene -port=53000 -BeaconPort=53001 -QueryPort=53002 -Game.PhysicsVehicle=false -ansimalloc -Game.MaxFrameRate=35 -ShutDownServicePort=53003
-
