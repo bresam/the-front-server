@@ -10,11 +10,13 @@ RUN groupadd -g 10000 gameserver && useradd -rm -d /home/gameserver -s /bin/bash
 
 ENV FRONT_SERVER_NAME="THE FRONT by bresam" \
     FRONT_SERVER_TITLE="Docker image at https://hub.docker.com/r/bresam/the-front-game-server" \
+    FRONT_CONFIG_SERVER_NAME="change_this_to_a_unique_value" \
     FRONT_MAX_PLAYERS=10 \
-    FRONT_PORT_GAME=53000 \
-    FRONT_PORT_BEACON=53001 \
-    FRONT_PORT_QUERY=53002 \
-    FRONT_PORT_SHUTDOWN_SERVICE=53003 \
+    FRONT_OUT_IP_ADDRESS="change_this_to_servers_public_ip_address" \
+    FRONT_PORT_GAME=5500 \
+    FRONT_PORT_BEACON=5501 \
+    FRONT_PORT_SHUTDOWN_SERVICE=5502 \
+    FRONT_PORT_QUERY=27015 \
     FRONT_SERVER_PASSWORD=""
 
 # entrypoint file
