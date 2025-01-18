@@ -1,0 +1,18 @@
+services:
+  the-front-server:
+    build:
+      context: .
+    environment:
+      FRONT_CONFIG_SERVER_NAME: local_test_1
+      FRONT_OUT_IP_ADDRESS: 127.0.0.1
+      FRONT_SERVER_AUTO_UPDATE_ON_START: false
+#      FRONT_SERVER_PASSWORD: 1234
+#      FRONT_SERVER_ADMIN_ACCOUNTS: "765xxxxxxxxxxxxxx;765yyyyyyyyyyyyyy"
+    ports:
+      - "5500:5500/tcp"
+      - "5500:5500/udp"
+      - "5501:5501/tcp"
+      - "5501:5501/udp"
+      - "5502:5502/tcp"
+    volumes:
+      - "./game_storage:/home/gameserver/the_front/game_storage"

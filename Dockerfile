@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.licenses="GPL-3.0"
 RUN groupadd -g 10000 gameserver && useradd -rm -d /home/gameserver -s /bin/bash -g gameserver -u 10000 gameserver
 
 ENV FRONT_SERVER_NAME="THE FRONT by bresam" \
-    FRONT_SERVER_TITLE="Docker image at https://hub.docker.com/r/bresam/the-front-game-server" \
+    FRONT_SERVER_TITLE="You can find this server docker image at https://hub.docker.com/r/bresam/the-front-game-server" \
     FRONT_CONFIG_SERVER_NAME="change_this_to_a_unique_value" \
     FRONT_MAX_PLAYERS=10 \
     FRONT_OUT_IP_ADDRESS="change_this_to_servers_public_ip_address" \
@@ -17,14 +17,20 @@ ENV FRONT_SERVER_NAME="THE FRONT by bresam" \
     FRONT_PORT_BEACON=5501 \
     FRONT_PORT_SHUTDOWN_SERVICE=5502 \
     FRONT_PORT_QUERY=27015 \
-    FRONT_SERVER_PASSWORD=""
+    FRONT_SERVER_PASSWORD="" \
+    FRONT_SERVER_AUTO_UPDATE_ON_START="true" \
+    FRONT_SERVER_ADMIN_ACCOUNTS="" \
+    FRONT_GAME_PHYSICS_VEHICLE="false" \
+    FRONT_GAME_MAX_FRAME_RATE=35
+
+# initial gameserver installation
+RUN steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit
 
 # entrypoint file
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 500 /entrypoint.sh
 
-# initial gameserver installation
-RUN steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit
+VOLUME ["/home/gameserver/the_front/game_storage"]
 
 # entrypoint file
 ENTRYPOINT /entrypoint.sh
