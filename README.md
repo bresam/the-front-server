@@ -8,6 +8,7 @@
   * [Simple server start](#simple-server-start)
   * [Configuration / Environment variables](#configuration--environment-variables)
   * [Docker compose example](#docker-compose-example)
+  * [Network / Firewall](#network--firewall)
   * [Dev notes](#dev-notes)
 <!-- TOC -->
 
@@ -94,9 +95,9 @@ services:
     environment:
       FRONT_CONFIG_SERVER_NAME: local_test_1
       FRONT_OUT_IP_ADDRESS: 127.0.0.1
-      FRONT_SERVER_AUTO_UPDATE_ON_START: false
-      FRONT_SERVER_PASSWORD: 1234
-      FRONT_SERVER_ADMIN_ACCOUNTS: "xxxxxxxxxxxxxxxxx;yyyyyyyyyyyyyyyyy"
+      #FRONT_SERVER_AUTO_UPDATE_ON_START: false
+      #FRONT_SERVER_PASSWORD: 1234
+      #FRONT_SERVER_ADMIN_ACCOUNTS: "xxxxxxxxxxxxxxxxx;yyyyyyyyyyyyyyyyy"
     ports:
       - "5500:5500/tcp"
       - "5500:5500/udp"
@@ -107,6 +108,18 @@ services:
       - "./game_storage:/home/gameserver/the_front/game_storage"
 
 ```
+
+## Network / Firewall
+
+Here you see an example configuration of a well tested The Front server running on aws EC2 instance with docker.
+On some ports I am not sure if both, tcp and udp, is really necessary, but it works.
+
+| Port start | Port end | Protocol | Description                                                       |
+|------------|----------|----------|-------------------------------------------------------------------|
+| 5500       | 5502     | tcp, udp | Game ports                                                        |
+| 27015      | 27015    | tcp      | Steam Query port                                                  |
+| -1         | -1       | icmp     | ICMP used for server ping, otherwise server list shows 500ms ping |
+
 
 ## Dev notes
 
