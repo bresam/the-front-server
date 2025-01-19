@@ -5,9 +5,6 @@ LABEL org.opencontainers.image.source="https://github.com/bresam/the-front-serve
 LABEL org.opencontainers.image.documentation="https://github.com/bresam/the-front-server"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
 
-# create user gameserver
-RUN groupadd -g 10000 gameserver && useradd -rm -d /home/gameserver -s /bin/bash -g gameserver -u 10000 gameserver
-
 ENV FRONT_SERVER_NAME="THE FRONT by bresam" \
     FRONT_SERVER_TITLE="You can find this server docker image at https://hub.docker.com/r/bresam/the-front-game-server" \
     FRONT_CONFIG_SERVER_NAME="change_this_to_a_unique_value" \
@@ -23,11 +20,25 @@ ENV FRONT_SERVER_NAME="THE FRONT by bresam" \
     FRONT_GAME_PHYSICS_VEHICLE="false" \
     FRONT_GAME_MAX_FRAME_RATE=35
 
+# sudo and users
+RUN apt-get update && \
+  apt-get install -y sudo && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
+  usermod -aG sudo ubuntu && \
+  groupadd -g 10000 gameserver && \
+  useradd -rm -d /home/gameserver -s /bin/bash -g gameserver -u 10000 gameserver && \
+  echo "ubuntu ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/ubuntu && \
+  chmod 0440 /etc/sudoers.d/ubuntu
+
+# reduce privileges with ubuntu user
+USER ubuntu
+
 # initial gameserver installation
-RUN steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit
+RUN sudo steamcmd +force_install_dir /home/gameserver/the_front +login anonymous +app_update 2334200 validate +quit
 
 # entrypoint file
-COPY entrypoint.sh /entrypoint.sh
+COPY --chown=ubuntu entrypoint.sh /entrypoint.sh
 RUN chmod 500 /entrypoint.sh
 
 VOLUME ["/home/gameserver/the_front/game_storage"]

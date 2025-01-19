@@ -10,7 +10,7 @@ else
 fi
 
 # set user "gameserver" as owner of server files
-chown -R gameserver:gameserver /home/gameserver/the_front
+sudo chown -R gameserver:gameserver /home/gameserver/the_front
 
 # build start cmd
 start_cmd="/home/gameserver/the_front/ProjectWar/Binaries/Linux/TheFrontServer ProjectWar ProjectWar_Start?Listen?MaxPlayers=100 \
@@ -49,4 +49,4 @@ fi
 #echo "$start_cmd"
 
 # start the front game server
-su - gameserver -c "$start_cmd"
+sudo su - gameserver -c "$start_cmd"

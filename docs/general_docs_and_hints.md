@@ -15,7 +15,7 @@ The Front Server Steam App ID:
 ## Build / Push
 
 ```bash
-docker build --push -t bresam/the-front-game-server:latest -t bresam/the-front-game-server:x.y.z .
+docker buildx build --pull --provenance=true --sbom=true -t bresam/the-front-game-server:latest -t bresam/the-front-game-server:x.y.z --push .
 ```
 
 ## Debug / Dev run (connect)
