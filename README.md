@@ -49,6 +49,7 @@ docker run \
   -p "5501:5501/tcp" \
   -p "5501:5501/udp" \
   -p "5502:5502/tcp" \
+  -p "27015:27015/tcp" \
   bresam/the-front-game-server:latest
 ```
 
@@ -63,6 +64,7 @@ docker run \
   -p "5501:5501/tcp" \
   -p "5501:5501/udp" \
   -p "5502:5502/tcp" \
+  -p "27015:27015/tcp" \
   -v "/your/host/path/to/front_storage_folder:/home/gameserver/the_front/game_storage"
   bresam/the-front-game-server:latest
 ```
@@ -104,6 +106,7 @@ services:
       - "5501:5501/tcp"
       - "5501:5501/udp"
       - "5502:5502/tcp"
+      - "27015:27015/tcp"
     volumes:
       - "./game_storage:/home/gameserver/the_front/game_storage"
 
